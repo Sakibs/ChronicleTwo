@@ -282,6 +282,12 @@ if(CT_ENABLE_TRACY)
     endforeach()
 endif()
 
+# port/src/start_costumes.hpp; the iOS presets turn it on.
+option(CT_START_WITH_ALL_COSTUMES "Start every new game with all of Max's and Monica's costumes" OFF)
+if(CT_START_WITH_ALL_COSTUMES)
+    target_compile_definitions(ct_port PRIVATE CT_START_WITH_ALL_COSTUMES)
+endif()
+
 # Opt in for faster replay and test runs while retaining Debug's symbols. Keep the usual
 # unoptimised Debug build available for stepping through every local and statement.
 # PRIVATE options leave the test sources and GoogleTest at their normal Debug settings.

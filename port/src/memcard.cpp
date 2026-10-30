@@ -11,6 +11,7 @@
 #include "platform/paths.hpp"
 #include "play_time.hpp"
 #include "save_slots.hpp"
+#include "start_costumes.hpp"
 #include "title.hpp"
 #include "userdata.hpp"
 
@@ -216,6 +217,13 @@ PORT_OVERRIDE u32 CMemoryCardManager::CheckOmake(u_long *out_mask) {
         flags |= slot.info.omake_flag;
         if (out_mask) {
             *out_mask |= slot.info.costume_bit;
+        }
+    }
+    if (kStartWithAllCostumes) {
+        // The new-game costume screen then offers every costume, Monica's included, as a cleared save's bonus does.
+        flags |= OMAKE_ENABLE_COSTUME;
+        if (out_mask) {
+            *out_mask |= AllCostumeBits();
         }
     }
     return flags;

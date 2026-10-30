@@ -76,6 +76,10 @@ For a local build, run `tools/ci/prebuilt-deps.sh ios-arm64`, install the Rust
 and `Vulkan_LIBRARY` pointing to the iOS libraries. Build with
 `cmake --build port/build/ios-arm64-release --target darkchronicle`.
 
+The iOS presets set `CT_START_WITH_ALL_COSTUMES`, off elsewhere: a new game starts with one of each of Max's
+and Monica's costumes in the inventory, every costume marked collected, and all of them offered on the opening
+costume screen (`port/src/start_costumes.cpp`).
+
 The launcher extracts the player's ISO on the device, using at most two workers. Touch controls appear
 when no physical controller, keyboard or mouse is active. The launcher and in-game APP SETTINGS share
 the same option rows. Display interpolation defaults off; Luau uses precompiled bytecode and keeps JIT

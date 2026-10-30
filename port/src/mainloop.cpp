@@ -57,6 +57,7 @@
 #include "subgame.hpp"
 #include "sysmes.hpp"
 #include "test_hooks.hpp"
+#include "start_costumes.hpp"
 #include "userdata.hpp"
 #include "vlgr_info.hpp"
 
@@ -206,6 +207,10 @@ int PortPlayTimeVSyncCallback(int /*unused*/) {
 
 PORT_OVERRIDE void InitSaveData() {
     GetSaveData()->Initialize();
+    if (kStartWithAllCostumes) {
+        // Before the title's new-game setup and its costume screen, which equip from what the save holds.
+        GiveAllCostumes(&GetSaveData()->user_data);
+    }
     SaveSlotSetPendingSpawn(std::nullopt);
     PlayTimeReset();
 }
