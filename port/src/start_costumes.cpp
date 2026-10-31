@@ -36,5 +36,14 @@ void GiveAllCostumes(CUserDataManager *user_data) {
             user_data->GetItem(item_no, 1);
         }
     });
-    user_data->SetCostumeBit(user_data->GetCostumeBit() | AllCostumeBits());
+    user_data->costume_bit |= AllCostumeBits();
+}
+
+// Retail's only caller is the title's new-game setup, after InitSaveData and after DebugGetItem has reset the
+// user data and given the starting items, so the costumes are given here rather than when the save is cleared.
+PORT_OVERRIDE void CUserDataManager::SetCostumeBit(unsigned long long bits) {
+    costume_bit = bits;
+    if (kStartWithAllCostumes) {
+        GiveAllCostumes(this);
+    }
 }
